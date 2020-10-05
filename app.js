@@ -8,7 +8,7 @@ app.set("view engine", "ejs")
 app.get("/", function(req, res){
 	res.render("home")
 })
-
-app.listen(3000, function() {
-	console.log("Services starts")
-})
+let port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log("Server Has Started!");
+});
