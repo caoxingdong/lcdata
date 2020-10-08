@@ -1,1 +1,17 @@
-<h1>This is home page!</h1>
+
+<%- include("partials/header") %>
+
+	<div class="container">
+		<h1>This is home page!</h1>
+		<form class="form-inline" action="/contest" method="post">
+			<!-- <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Preference</label> -->
+			  <label class="my-1 mr-2" for="inlineFormInputName2">Name</label>
+			  <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe" name="queryName">
+
+		  
+
+		  <button type="submit" class="btn btn-primary mb-2">Submit</button>
+		</form>
+	</div>
+
+<%- include("partials/footer") %>

@@ -30,13 +30,23 @@ app.get("/contest", function(req, res){
 			res.render("contest", {data:users})
 		}
 	})
-	// request.get("https://leetcode.com/contest/api/ranking/weekly-contest-209/?pagination=5&region=global",function (err, httpResponse, body) {
-	// 	if (!err && httpResponse.statusCode == 200) {	
-	// 		data = JSON.parse(body).total_rank
-	// 		// console.log(data)
-	// 		res.render("contest", {data:data})
-	// 	}
-	// })
+})
+
+app.post("/contest", function(req, res){
+	User.find({name:req.body.queryName}, function(err, users) {
+		if (!err && users) {
+			res.render("contest", {data:users})
+		}
+	})
+})
+
+app.get("/manage", function(req, res) {
+	res.render("manage")
+})
+
+app.post("/manage", function(req, res) {
+	console.log(req.body.type, req.body.number)
+	res.render("manage")
 })
 
 let port = process.env.PORT || 3000;

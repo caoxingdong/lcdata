@@ -1,0 +1,14 @@
+<%- include("partials/header") %>
+<div class="container">
+	<form class="form-inline" action="/manage" method="post">
+		<label class="my-1 mr-2">Add Contest</label>
+		<select class="custom-select my-1 mr-sm-2" name="type">
+			<option value="W" selected>Weekly Contest</option>
+			<option value="B">Byweekly Contest</option>
+		</select>
+		 <input type="number" class="form-control mb-2 mr-sm-2" name="number">
+		<button type="submit" class="btn btn-primary mb-2">Submit</button>
+	</form>
+</div>
+
+<%- include("partials/footer") %>
