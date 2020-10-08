@@ -2,24 +2,27 @@
 
 <div class="container">
 	<h1>contest page</h1>
+	<% data.forEach(function(user){ %>
 	<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">UserName</th>
-      <th scope="col">Rank</th>
-      <th scope="col">Country</th>
-    </tr>
-  </thead>
-  <tbody>
-	  <% data.forEach(function(user){ %>
-    <tr>
-      <td><%= user.username%></td>
-      <td><%= user.rank%></td>
-      <td><%= user.country_name%></td>
-    </tr>
-	  <% }); %>
-	    </tbody>
+  	<thead>
+		<tr>
+		  <th scope="col">UserName</th>
+		  <th scope="col">Contest</th>
+		  <th scope="col">Rank</th>
+		</tr>
+  	</thead>
+  	<tbody>
+		<% user.ranks.forEach(function(rank){ %>
+		<tr>
+			<td><%= user.name%></td>
+			<td><%= rank.contest%></td>
+			<td><%= rank.rank%></td>
+		</tr>
+	  	<% }); %>
+	</tbody>
 </table>
+	<hr>
+	<% }); %>
 </div>
 
 
