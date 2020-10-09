@@ -2,27 +2,36 @@
 
 <div class="container">
 	<h1>contest page</h1>
-	<% data.forEach(function(user){ %>
 	<table class="table">
   	<thead>
 		<tr>
 		  <th scope="col">UserName</th>
 		  <th scope="col">Contest</th>
 		  <th scope="col">Rank</th>
+		  <th scope="col">Problems</th>
 		</tr>
   	</thead>
   	<tbody>
-		<% user.ranks.forEach(function(rank){ %>
+		<% user.contestPerformance.forEach(function(contest){ %>
 		<tr>
-			<td><%= user.name%></td>
-			<td><%= rank.contest%></td>
-			<td><%= rank.rank%></td>
+			<td><%= user.name%></td>			
+			<td><a href=<%= "https://leetcode.com/contest/"+contestInfo[contest.contestId.toString()].slug%>><%=contestInfo[contest.contestId.toString()].title%></a></td>
+			<td><%= contest.rank%></td>
+			<td>
+				<% contest.problems.forEach(function(p) { %>
+					<% if (p.solved === true) { %>
+						<a class="btn btn-sm btn-success" href=<%="https://leetcode.com/problems/"+questionInfo[p.problemId].slug%>><%=questionInfo[p.problemId].frontendId%></a>
+					<% } %>
+					<% if (p.solved === false) { %>
+						<a class="btn btn-sm btn-danger" href=<%="https://leetcode.com/problems/"+questionInfo[p.problemId].slug%>><%=questionInfo[p.problemId].frontendId%></a>
+					<% } %>
+				<% }) %>
+			</td>
 		</tr>
 	  	<% }); %>
 	</tbody>
 </table>
 	<hr>
-	<% }); %>
 </div>
 
 

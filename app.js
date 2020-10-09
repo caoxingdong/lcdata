@@ -13,6 +13,10 @@ mongoose.connect('mongodb+srv://doudle:doudle@lcdata.h41ou.mongodb.net/<dbname>?
 .catch(error => console.log(error.message))
 
 let User = require("./models/user")
+let Utils = require("./utils")
+
+let contestInfo = Utils.getContestInfo()
+let questionInfo = Utils.getQuestionInfo()
 
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -24,18 +28,25 @@ app.get("/", function(req, res){
 	res.render("home")
 })
 
-app.get("/contest", function(req, res){
-	User.find({}, function(err, users) {
-		if (!err) {
-			res.render("contest", {data:users})
-		}
-	})
-})
+// app.get("/contest", function(req, res){
+// 	User.find({}, function(err, users) {
+// 		if (!err) {
+// 			res.render("contest", {users:users})
+// 		}
+// 	})
+// })
 
 app.post("/contest", function(req, res){
 	User.find({name:req.body.queryName}, function(err, users) {
-		if (!err && users) {
-			res.render("contest", {data:users})
+		if (!err && users.length > 0) {
+			// console.log(contestInfo)
+			// users[0].contestPerformance.forEach(function(contest) {
+			// 	console.log(contest.contestId)
+			// 	console.log(contest.contestId.toString())
+			// 	console.log(contestInfo[contest.contestId.toString()])
+			// })
+			
+			res.render("contest", {user:users[0], contestInfo:contestInfo, questionInfo:questionInfo})
 		}
 	})
 })

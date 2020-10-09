@@ -3,12 +3,14 @@ let mongoose = require("mongoose");
 let userSchema = new mongoose.Schema({
    name: String,
    country: String,
-   ranks: [
-      {
-         contest: Number,
-         rank: Number
-      }
-   ]
+   contestPerformance: [{
+        contestId: Number,
+        rank: Number,
+		problems: [{
+			 problemId: Number,
+			 solved: Boolean
+		}]
+    }]
 });
 
 module.exports = mongoose.model("User", userSchema);
