@@ -11,7 +11,7 @@ mongoose.connect('mongodb+srv://doudle:doudle@lcdata.h41ou.mongodb.net/<dbname>?
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => writeDataSingle(1, 1))
+.then(() => writeDataSingle(400, 1))
 .catch(error => console.log(error.message))
 
 function writeDataSingle(contestId, pageNumber) {
@@ -19,13 +19,13 @@ function writeDataSingle(contestId, pageNumber) {
 		writeDataSingle(contestId+1, 1)
 		return
 	}
-	if (contestId === 101) {
+	if (contestId === 51) {
 		return
 	}
-	// if (pageNumber === 21) {
-	// 	writeDataSingle(contestId+1, 1)
-	// 	return
-	// }
+	if (pageNumber === 21) {
+		writeDataSingle(contestId+1, 1)
+		return
+	}
 	console.log(contestId, pageNumber)
 	request.get("https://leetcode.com/contest/api/ranking/" + contestInfo[contestId.toString()].slug + "/?pagination= " + pageNumber + "&region=global",  function(error, response, body) {
 		// let contestId = JSON.parse(body).
@@ -53,7 +53,7 @@ function writeDataSingle(contestId, pageNumber) {
 			})
 			User.find({name:user.username}, function(err, users) {
 				if (users.length === 0) {
-					let newuser = {name:user.username, country: user.country_name, contestPerformance:[{contestId:contestId, rank:user.rank, problems:ps}]}
+					let newuser = {name:user.username, country: user.country_name,data_region:user.data_region, contestPerformance:[{contestId:contestId, rank:user.rank, problems:ps}]}
 					// console.log(newuser.contestPerformance[0].problems)
 					User.create(newuser, function(err, newUser) {
 						// console.log("create a new one")
@@ -81,7 +81,7 @@ function writeDataSingle(contestId, pageNumber) {
 
 
 
-
+// 1-50
 
 
 

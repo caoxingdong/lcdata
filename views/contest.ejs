@@ -14,9 +14,20 @@
   	<tbody>
 		<% user.contestPerformance.forEach(function(contest){ %>
 		<tr>
-			<td><%= user.name%></td>			
+			<td>
+				<% if (user.data_region === "US") { %>
+					<a href=<%= "https://leetcode.com/"+user.name %>><%= user.name %></a>
+				<% } %>
+				<% if (user.data_region === "CN") { %>
+					<a href=<%= "https://leetcode-cn.com/u/"+user.name %>><%= user.name %></a>
+				<% } %>
+			</td>
+			
 			<td><a href=<%= "https://leetcode.com/contest/"+contestInfo[contest.contestId.toString()].slug%>><%=contestInfo[contest.contestId.toString()].title%></a></td>
-			<td><%= contest.rank%></td>
+			<td>
+				<a href=<%= "https://leetcode.com/contest/" + contestInfo[contest.contestId.toString()].slug + "/ranking/" + Math.ceil(contest.rank/25) %>><%= contest.rank %></a>
+			</td>
+			
 			<td>
 				<% contest.problems.forEach(function(p) { %>
 					<% if (p.solved === true) { %>
