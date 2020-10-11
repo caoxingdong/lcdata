@@ -28,29 +28,13 @@ app.get("/", function(req, res){
 	res.render("home")
 })
 
-// app.get("/contest", function(req, res){
-// 	User.find({}, function(err, users) {
-// 		if (!err) {
-// 			res.render("contest", {users:users})
-// 		}
-// 	})
-// })
-
 app.post("/contest", function(req, res){
 	queryName = req.body.queryName
+	queryName.replace(/(^\s*)|(\s*$)/g, "")
+	if (queryName.length == 0) {
+		queryName = "nevergiveup"
+	}
 	res.redirect("/contest/" + queryName)
-	// User.find({name:req.body.queryName}, function(err, users) {
-	// 	if (!err && users.length > 0) {
-	// 		// console.log(contestInfo)
-	// 		// users[0].contestPerformance.forEach(function(contest) {
-	// 		// 	console.log(contest.contestId)
-	// 		// 	console.log(contest.contestId.toString())
-	// 		// 	console.log(contestInfo[contest.contestId.toString()])
-	// 		// })
-			
-	// 		res.render("contest", {user:users[0], contestInfo:contestInfo, questionInfo:questionInfo})
-	// 	}
-	// })
 })
 
 app.get("/contest/:queryName", function(req, res) {
