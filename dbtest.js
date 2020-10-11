@@ -11,7 +11,7 @@ mongoose.connect('mongodb+srv://doudle:doudle@lcdata.h41ou.mongodb.net/<dbname>?
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => writeDataSingle(400, 1))
+.then(() => writeDataSingle(343, 1))
 .catch(error => console.log(error.message))
 
 function writeDataSingle(contestId, pageNumber) {
@@ -19,13 +19,13 @@ function writeDataSingle(contestId, pageNumber) {
 		writeDataSingle(contestId+1, 1)
 		return
 	}
-	if (contestId === 51) {
+	if (contestId === 161) {
 		return
 	}
-	if (pageNumber === 21) {
-		writeDataSingle(contestId+1, 1)
-		return
-	}
+	// if (pageNumber === 21) {
+	// 	writeDataSingle(contestId+1, 1)
+	// 	return
+	// }
 	console.log(contestId, pageNumber)
 	request.get("https://leetcode.com/contest/api/ranking/" + contestInfo[contestId.toString()].slug + "/?pagination= " + pageNumber + "&region=global",  function(error, response, body) {
 		// let contestId = JSON.parse(body).
@@ -65,14 +65,14 @@ function writeDataSingle(contestId, pageNumber) {
 					})
 				}
 				else {
-					// console.log("duplicate")
-					User.findOneAndUpdate({name:user.username},{$push:{contestPerformance:{contestId:contestId, rank:user.rank, problems:ps}}}).exec(function(){
-						// console.log("append a new one")
-						cnt += 1
-						if (cnt == ranks.length) {
-							writeDataSingle(contestId, pageNumber+1)
-						}
-					})
+					if (!(users[0].contestPerformance[users[0].contestPerformance.length-1].contestId == contestId)) {
+						User.findOneAndUpdate({name:user.username},{$push:{contestPerformance:{contestId:contestId, rank:user.rank, problems:ps}}}).exec(function(){
+						})
+					}
+					cnt += 1
+					if (cnt == ranks.length) {
+						writeDataSingle(contestId, pageNumber+1)
+					}
 				}
 			})
 		}			
@@ -82,6 +82,10 @@ function writeDataSingle(contestId, pageNumber) {
 
 
 // 1-50
+// 51-80
+// 81-100
+// 101-130
+// 131-160
 
 
 

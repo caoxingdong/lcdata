@@ -37,16 +37,30 @@ app.get("/", function(req, res){
 // })
 
 app.post("/contest", function(req, res){
-	User.find({name:req.body.queryName}, function(err, users) {
-		if (!err && users.length > 0) {
-			// console.log(contestInfo)
-			// users[0].contestPerformance.forEach(function(contest) {
-			// 	console.log(contest.contestId)
-			// 	console.log(contest.contestId.toString())
-			// 	console.log(contestInfo[contest.contestId.toString()])
-			// })
+	queryName = req.body.queryName
+	res.redirect("/contest/" + queryName)
+	// User.find({name:req.body.queryName}, function(err, users) {
+	// 	if (!err && users.length > 0) {
+	// 		// console.log(contestInfo)
+	// 		// users[0].contestPerformance.forEach(function(contest) {
+	// 		// 	console.log(contest.contestId)
+	// 		// 	console.log(contest.contestId.toString())
+	// 		// 	console.log(contestInfo[contest.contestId.toString()])
+	// 		// })
 			
+	// 		res.render("contest", {user:users[0], contestInfo:contestInfo, questionInfo:questionInfo})
+	// 	}
+	// })
+})
+
+app.get("/contest/:queryName", function(req, res) {
+	queryName = req.params.queryName
+	User.find({name:queryName}, function(err, users) {
+		if (!err && users.length > 0) {
 			res.render("contest", {user:users[0], contestInfo:contestInfo, questionInfo:questionInfo})
+		}
+		else {
+			res.send("no user")
 		}
 	})
 })
