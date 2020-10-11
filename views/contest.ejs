@@ -1,6 +1,6 @@
 <%- include("partials/header") %>
 
-<div class="container">
+<div class="container mb-3">
 	<h1>contest page</h1>
 	<table class="table">
   	<thead>
@@ -24,6 +24,7 @@
 			</td>
 			
 			<td><a href=<%= "https://leetcode.com/contest/"+contestInfo[contest.contestId.toString()].slug%>><%=contestInfo[contest.contestId.toString()].title%></a></td>
+			
 			<td>
 				<a href=<%= "https://leetcode.com/contest/" + contestInfo[contest.contestId.toString()].slug + "/ranking/" + Math.ceil(contest.rank/25) %>><%= contest.rank %></a>
 			</td>
@@ -44,6 +45,5 @@
 </table>
 	<a href="/" class="btn btn-primary">Home Page</a>
 </div>
-
 
 <%- include("partials/footer") %>

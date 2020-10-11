@@ -267,7 +267,8 @@ function getContestInfo() {
 		"404":{"title":"Weekly Contest 207","slug":"weekly-contest-207"},
 		"406":{"title":"Biweekly Contest 36","slug":"biweekly-contest-36"},
 		"408":{"title":"Weekly Contest 208","slug":"weekly-contest-208"},
-		"410":{"title":"Weekly Contest 209","slug":"weekly-contest-209"}
+		"410":{"title":"Weekly Contest 209","slug":"weekly-contest-209"},
+		"414":{"title":"Weekly Contest 210","slug":"weekly-contest-210"}
 	}
 	return contestInfo
 }
