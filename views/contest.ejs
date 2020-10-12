@@ -1,11 +1,21 @@
 <%- include("partials/header") %>
 
+<% user.contestPerformance.sort(function(a, b) { %>
+	<% return contestInfo[a.contestId.toString()].time - contestInfo[b.contestId.toString()].time %>
+<% }) %>
+
 <div class="container mb-3">
-	<h1>contest page</h1>
+	<h1>LeetCode contest history of
+		<% if (user.data_region === "US") { %>
+			<a href=<%= "https://leetcode.com/"+user.name %>><%= user.name %></a>
+		<% } %>
+		<% if (user.data_region === "CN") { %>
+			<a href=<%= "https://leetcode-cn.com/u/"+user.name %>><%= user.name %></a>
+		<% } %>
+	</h1>
 	<table class="table">
   	<thead>
 		<tr>
-		  <th scope="col">UserName</th>
 		  <th scope="col">Contest</th>
 		  <th scope="col">Rank</th>
 		  <th scope="col">Problems</th>
@@ -13,17 +23,10 @@
   	</thead>
   	<tbody>
 		<% user.contestPerformance.forEach(function(contest){ %>
-		<tr>
+		<tr>			
 			<td>
-				<% if (user.data_region === "US") { %>
-					<a href=<%= "https://leetcode.com/"+user.name %>><%= user.name %></a>
-				<% } %>
-				<% if (user.data_region === "CN") { %>
-					<a href=<%= "https://leetcode-cn.com/u/"+user.name %>><%= user.name %></a>
-				<% } %>
+				<a href=<%= "https://leetcode.com/contest/"+contestInfo[contest.contestId.toString()].slug%>><%=contestInfo[contest.contestId.toString()].title%></a>
 			</td>
-			
-			<td><a href=<%= "https://leetcode.com/contest/"+contestInfo[contest.contestId.toString()].slug%>><%=contestInfo[contest.contestId.toString()].title%></a></td>
 			
 			<td>
 				<a href=<%= "https://leetcode.com/contest/" + contestInfo[contest.contestId.toString()].slug + "/ranking/" + Math.ceil(contest.rank/25) %>><%= contest.rank %></a>
@@ -43,7 +46,7 @@
 	  	<% }); %>
 	</tbody>
 </table>
-	<a href="/" class="btn btn-primary">Home Page</a>
+	<a href="/" class="btn btn-primary mb-3">Home Page</a>
 </div>
 
 <%- include("partials/footer") %>
