@@ -1,8 +1,21 @@
 <%- include("partials/header") %>
-
 <% user.contestPerformance.sort(function(a, b) { %>
 	<% return contestInfo[a.contestId.toString()].time - contestInfo[b.contestId.toString()].time %>
 <% }) %>
+
+<% let labels = [] %>
+	<% let data = [] %>
+	<% let prev = -1 %>
+	<% user.contestPerformance.forEach(function(contest){ %>
+		<% if (contest.contestId != prev) { %>
+			<% prev = contest.contestId %>
+			<% labels.push(contestInfo[contest.contestId.toString()].title) %>
+			<% data.push(contest.rank) %>
+		<% } %>
+	<% }) %>
+
+
+
 
 <div class="container mb-3">
 	<h1>LeetCode contest history of
@@ -13,6 +26,8 @@
 			<a href=<%= "https://leetcode-cn.com/u/"+user.name %>><%= user.name %></a>
 		<% } %>
 	</h1>
+	
+	<canvas id="myChart" width="4000" height="2000"></canvas>
 	<table class="table">
   	<thead>
 		<tr>
@@ -29,7 +44,7 @@
 			</td>
 			
 			<td>
-				<a href=<%= "https://leetcode.com/contest/" + contestInfo[contest.contestId.toString()].slug + "/ranking/" + Math.ceil(contest.rank/25) %>><%= contest.rank %></a>
+				<a href=<%= "https://leetcode.com/contest/" + contestInfo[contest.contestId.toString()].slug + "/ranking/" + Math.ceil(contest.rank/25) %>><%= contest.rank %>/<%= contestInfo[contest.contestId.toString()].userNumber %></a>
 			</td>
 			
 			<td>
@@ -48,5 +63,50 @@
 </table>
 	<a href="/" class="btn btn-primary mb-3">Home Page</a>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script>
+// let labels_copy = <%= labels %>
+// let data_copy = <%= data %>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: <%-JSON.stringify(labels)%>,
+        datasets: [{
+            label: "<%=user.name %>",
+            data: <%-JSON.stringify(data)%>,
+            // backgroundColor: [
+            //     'rgba(255, 99, 132, 0.2)',
+            //     'rgba(54, 162, 235, 0.2)',
+            //     'rgba(255, 206, 86, 0.2)',
+            //     'rgba(75, 192, 192, 0.2)',
+            //     'rgba(153, 102, 255, 0.2)',
+            //     'rgba(255, 159, 64, 0.2)'
+            // ],
+            // borderColor: [
+            //     'rgba(255,99,132,1)',
+            //     'rgba(54, 162, 235, 1)',
+            //     'rgba(255, 206, 86, 1)',
+            //     'rgba(75, 192, 192, 1)',
+            //     'rgba(153, 102, 255, 1)',
+            //     'rgba(255, 159, 64, 1)'
+            // ],
+            borderWidth: 1
+        }]
+    },
+    // options: {
+    //     scales: {
+    //         yAxes: [{
+    //             ticks: {
+    //                 beginAtZero:true
+    //             }
+    //         }]
+    //     }
+    // }
+});
+</script>
+<!-- </script> -->
+ 
 
 <%- include("partials/footer") %>

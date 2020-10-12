@@ -2,7 +2,7 @@ let express = require("express")
 let app = express()
 let bodyParser = require("body-parser")
 let request = require("request")
-
+let chart = require("chart.js")
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 mongoose.connect('mongodb+srv://doudle:doudle@lcdata.h41ou.mongodb.net/<dbname>?retryWrites=true&w=majority', {
@@ -39,6 +39,7 @@ app.get("/contest/:queryName", function(req, res) {
 	queryName = req.params.queryName
 	User.find({name:queryName}, function(err, users) {
 		if (!err && users.length > 0) {
+			
 			res.render("contest", {user:users[0], contestInfo:contestInfo, questionInfo:questionInfo})
 		}
 		else {
