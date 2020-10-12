@@ -18,12 +18,13 @@ Object.keys(oldContestInfo).forEach(key => {
 	
 	oldContestInfo[key].time = t
 	oldContestInfo[key].userNumber = userNumber
+	oldContestInfo[key].rate = true
 	
 })
 
 // console.log(oldContestInfo)
 
-fs.writeFile("contest.text", JSON.stringify(oldContestInfo, null, 4), function() {
+fs.writeFile("contest.txt", JSON.stringify(oldContestInfo, null, 4), function() {
 	console.log(1)
 })
 

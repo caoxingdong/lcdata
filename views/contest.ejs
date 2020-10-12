@@ -9,8 +9,10 @@
 	<% user.contestPerformance.forEach(function(contest){ %>
 		<% if (contest.contestId != prev) { %>
 			<% prev = contest.contestId %>
-			<% labels.push(contestInfo[contest.contestId.toString()].title) %>
-			<% data.push(contest.rank) %>
+			<% if (contestInfo[contest.contestId.toString()].rate == true) { %>
+				<% labels.push(contestInfo[contest.contestId.toString()].title) %>
+				<% data.push(contest.rank) %>
+			<% } %>
 		<% } %>
 	<% }) %>
 
@@ -18,7 +20,7 @@
 
 
 <div class="container mb-3">
-	<h1>LeetCode contest history of
+	<h1 class="text-center">LeetCode contest history of
 		<% if (user.data_region === "US") { %>
 			<a href=<%= "https://leetcode.com/"+user.name %>><%= user.name %></a>
 		<% } %>
@@ -28,7 +30,7 @@
 	</h1>
 	
 	<canvas id="myChart" width="4000" height="2000"></canvas>
-	<table class="table">
+	<table class="table mt-5">
   	<thead>
 		<tr>
 		  <th scope="col">Contest</th>
@@ -38,12 +40,15 @@
   	</thead>
   	<tbody>
 		<% user.contestPerformance.forEach(function(contest){ %>
-		<tr>			
-			<td>
+		<tr <% if (contestInfo[contest.contestId.toString()].rate == false) { %>
+			class="line-through"
+			<% } %>
+			>			
+			<td class="align-middle">
 				<a href=<%= "https://leetcode.com/contest/"+contestInfo[contest.contestId.toString()].slug%>><%=contestInfo[contest.contestId.toString()].title%></a>
 			</td>
 			
-			<td>
+			<td class="align-middle">
 				<a href=<%= "https://leetcode.com/contest/" + contestInfo[contest.contestId.toString()].slug + "/ranking/" + Math.ceil(contest.rank/25) %>><%= contest.rank %>/<%= contestInfo[contest.contestId.toString()].userNumber %></a>
 			</td>
 			
@@ -58,7 +63,7 @@
 				<% }) %>
 			</td>
 		</tr>
-	  	<% }); %>
+	  	<% }) %>
 	</tbody>
 </table>
 	<a href="/" class="btn btn-primary mb-3">Home Page</a>
@@ -66,47 +71,44 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script>
-// let labels_copy = <%= labels %>
-// let data_copy = <%= data %>
-var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
+let ctx = document.getElementById("myChart");
+let myChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: <%-JSON.stringify(labels)%>,
         datasets: [{
-            label: "<%=user.name %>",
             data: <%-JSON.stringify(data)%>,
-            // backgroundColor: [
-            //     'rgba(255, 99, 132, 0.2)',
-            //     'rgba(54, 162, 235, 0.2)',
-            //     'rgba(255, 206, 86, 0.2)',
-            //     'rgba(75, 192, 192, 0.2)',
-            //     'rgba(153, 102, 255, 0.2)',
-            //     'rgba(255, 159, 64, 0.2)'
-            // ],
-            // borderColor: [
-            //     'rgba(255,99,132,1)',
-            //     'rgba(54, 162, 235, 1)',
-            //     'rgba(255, 206, 86, 1)',
-            //     'rgba(75, 192, 192, 1)',
-            //     'rgba(153, 102, 255, 1)',
-            //     'rgba(255, 159, 64, 1)'
-            // ],
-            borderWidth: 1
+            borderWidth: 1,
+			fill: false,
+			pointBorderColor: "#c82333",
+			borderColor: "#007bff",
+			pointBorderWidth: 2,
+			pointRadius: 1
         }]
     },
-    // options: {
-    //     scales: {
-    //         yAxes: [{
-    //             ticks: {
-    //                 beginAtZero:true
-    //             }
-    //         }]
-    //     }
-    // }
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+				},
+				scaleLabel: {
+					display: true,
+					labelString: 'rank'
+				}
+            }]
+        },
+		elements: {
+            line: {
+                tension: 0 // disables bezier curves
+            }
+        },
+		legend: {
+			display: false
+		}
+    }
 });
 </script>
-<!-- </script> -->
  
 
 <%- include("partials/footer") %>
