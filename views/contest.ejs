@@ -1,12 +1,18 @@
 <%- include("partials/header") %>
-<% user.contestPerformance.sort(function(a, b) { %>
-	<% return contestInfo[a.contestId.toString()].time - contestInfo[b.contestId.toString()].time %>
+
+<% let contests = user.contestPerformance.concat(former) %>
+
+<% contests.sort(function(a, b) { %>
+	<% if (contestInfo[a.contestId.toString()].time - contestInfo[b.contestId.toString()].time != 0) { %>
+		<% return contestInfo[a.contestId.toString()].time - contestInfo[b.contestId.toString()].time %>
+	<% } %>
+	<% return a.rank - b.rank %>
 <% }) %>
 
 <% let labels = [] %>
 	<% let data = [] %>
 	<% let prev = -1 %>
-	<% user.contestPerformance.forEach(function(contest){ %>
+	<% contests.forEach(function(contest){ %>
 		<% if (contest.contestId != prev) { %>
 			<% prev = contest.contestId %>
 			<% if (contestInfo[contest.contestId.toString()].rate == true) { %>
@@ -30,20 +36,27 @@
 	</h1>
 	
 	<canvas id="myChart" width="4000" height="2000"></canvas>
-	<table class="table mt-5">
+	<table class="table mt-5 table-hover">
   	<thead>
 		<tr>
+		  <th scope="col">#</th>
 		  <th scope="col">Contest</th>
 		  <th scope="col">Rank</th>
 		  <th scope="col">Problems</th>
 		</tr>
   	</thead>
   	<tbody>
-		<% user.contestPerformance.forEach(function(contest){ %>
+		<% prev = -1 %>
+		<% cnt = 0 %>
+		<% contests.forEach(function(contest){ %>
+		<% if (contest.contestId != prev) { %>
+			<% prev = contest.contestId %>
 		<tr <% if (contestInfo[contest.contestId.toString()].rate == false) { %>
 			class="line-through"
 			<% } %>
-			>			
+			>	
+			<% cnt = cnt + 1%>
+			<td class="align-middle" scope="row"><%= cnt %></td>
 			<td class="align-middle">
 				<a href=<%= "https://leetcode.com/contest/"+contestInfo[contest.contestId.toString()].slug%>><%=contestInfo[contest.contestId.toString()].title%></a>
 			</td>
@@ -63,6 +76,7 @@
 				<% }) %>
 			</td>
 		</tr>
+		<% } %>
 	  	<% }) %>
 	</tbody>
 </table>

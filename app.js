@@ -30,23 +30,57 @@ app.get("/", function(req, res){
 app.post("/contest", function(req, res){
 	queryName = req.body.queryName
 	queryName.replace(/(^\s*)|(\s*$)/g, "")
+	formerName = req.body.formerName
+	formerName.replace(/(^\s*)|(\s*$)/g, "")
+	// console.log(queryName)
 	if (queryName.length == 0) {
-		queryName = "nevergiveup"
+		queryName = "ddoudle"
 	}
-	res.redirect("/contest/" + queryName)
+	if (formerName.length == 0) {
+		res.redirect("/contest/" + queryName)
+	}
+	else {		
+		res.redirect("/contest/" + queryName + "&" + formerName)
+	}
+	
 })
 
-app.get("/contest/:queryName", function(req, res) {
-	queryName = req.params.queryName
-	User.find({name:queryName}, function(err, users) {
-		if (!err && users.length > 0) {
-			
-			res.render("contest", {user:users[0], contestInfo:contestInfo, questionInfo:questionInfo})
-		}
-		else {
-			res.send("no user")
-		}
-	})
+app.get("/contest/:names", function(req, res) {
+	names = req.params.names
+	if (!names.includes("&")) {
+		User.find({name:names}, function(err, users) {
+			if (!err && users.length > 0) {
+				res.render("contest", {user:users[0], former: [], contestInfo:contestInfo, questionInfo:questionInfo})
+			}
+			else {
+				res.send("no user")
+			}
+		})		
+	}
+	else {
+		names = names.split('&')
+		queryName = names[0]
+		formerName = names[1]
+		// console.log(queryName, formerName)
+		User.find({name:queryName}, function(err, users) {
+			if (!err && users.length > 0) {
+				User.find({name:formerName}, function(err1, users1) {
+					// console.log(users, users1)
+					if (!err1 && users1.length > 0) {
+						// console.log(users[0].contestPerformance.length, users1[0].contestPerformance.length)
+						res.render("contest", {user:users[0], former: users1[0].contestPerformance, contestInfo:contestInfo, questionInfo:questionInfo})
+					}
+					else {
+						res.render("contest", {user:users[0], former: [], contestInfo:contestInfo, questionInfo:questionInfo})
+					}
+				})
+				// res.render("contest", {user:users[0], former: [], contestInfo:contestInfo, questionInfo:questionInfo})
+			}
+			else {
+				res.send("no user")
+			}
+		})
+	}
 })
 
 app.get("/manage", function(req, res) {
