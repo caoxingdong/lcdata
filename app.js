@@ -34,7 +34,7 @@ app.post("/contest", function(req, res){
 	formerName.replace(/(^\s*)|(\s*$)/g, "")
 	// console.log(queryName)
 	if (queryName.length == 0) {
-		queryName = "ddoudle"
+		queryName = "neal_wu"
 	}
 	if (formerName.length == 0) {
 		res.redirect("/contest/" + queryName)
@@ -83,14 +83,14 @@ app.get("/contest/:names", function(req, res) {
 	}
 })
 
-app.get("/manage", function(req, res) {
-	res.render("manage")
-})
+// app.get("/manage", function(req, res) {
+// 	res.render("manage")
+// })
 
-app.post("/manage", function(req, res) {
-	console.log(req.body.type, req.body.number)
-	res.render("manage")
-})
+// app.post("/manage", function(req, res) {
+// 	console.log(req.body.type, req.body.number)
+// 	res.render("manage")
+// })
 
 let port = process.env.PORT || 3000;
 app.listen(port, function () {
