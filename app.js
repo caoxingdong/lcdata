@@ -3,11 +3,12 @@ let app = express()
 let bodyParser = require("body-parser")
 let request = require("request")
 let chart = require("chart.js")
-let dbUser = require("./config/key")
+let dbUser = require("./config/keys")
 let dbuser = dbUser.dbUser
+console.log(dbuser)
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
-mongoose.connect('mongodb+srv://' + dbuser.key + 'doudle:doudle@' + dbuser.pw + '.h41ou.mongodb.net/<dbname>?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://doudle:doudle@lcdata.h41ou.mongodb.net/<dbname>?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
