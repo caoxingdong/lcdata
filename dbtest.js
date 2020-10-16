@@ -11,7 +11,7 @@ mongoose.connect('mongodb+srv://doudle:doudle@lcdata.h41ou.mongodb.net/<dbname>?
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => writeDataSingle(343, 1))
+.then(() => writeDataSingle(414, 1))
 .catch(error => console.log(error.message))
 
 function writeDataSingle(contestId, pageNumber) {
@@ -19,7 +19,7 @@ function writeDataSingle(contestId, pageNumber) {
 		writeDataSingle(contestId+1, 1)
 		return
 	}
-	if (contestId === 161) {
+	if (contestId === 415) {
 		return
 	}
 	// if (pageNumber === 21) {

@@ -1779,7 +1779,7 @@ function getContestInfo() {
 			"slug": "weekly-contest-210",
 			"time": 1602383400,
 			"userNumber": 11792,
-			"rate": true
+			"rate": false
 		}
 	}
 	return contestInfo
