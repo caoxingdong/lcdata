@@ -18,4 +18,3 @@ Heroku:
 
 heroku login,
 git push heroku HEAD:master
-
