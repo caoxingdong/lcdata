@@ -1780,6 +1780,69 @@ function getContestInfo() {
 			"time": 1602383400,
 			"userNumber": 11792,
 			"rate": false
+		},
+		"412": {
+			"title": "Biweekly Contest 37",
+			"slug": "biweekly-contest-37",
+			"time": 1602945000,
+			"userNumber": 8250,
+			"rate": true
+		},
+		"416": {
+			"title": "Weekly Contest 211",
+			"slug": "weekly-contest-211",
+			"time": 1602988200,
+			"userNumber": 11960,
+			"rate": true
+		},
+		"420": {
+			"title": "Weekly Contest 212",
+			"slug": "weekly-contest-212",
+			"time": 1603593000,
+			"userNumber": 10984,
+			"rate": true
+		},
+		"418": {
+			"title": "Biweekly Contest 38",
+			"slug": "biweekly-contest-38",
+			"time": 1604154600,
+			"userNumber": 7446,
+			"rate": true
+		},
+		"422": {
+			"title": "Weekly Contest 213",
+			"slug": "weekly-contest-213",
+			"time": 1604197800,
+			"userNumber": 10630,
+			"rate": true
+		},
+		"426": {
+			"title": "Weekly Contest 214",
+			"slug": "weekly-contest-214",
+			"time": 1604802600,
+			"userNumber": 9769,
+			"rate": true
+		},
+		"424": {
+			"title": "Biweekly Contest 39",
+			"slug": "biweekly-contest-39",
+			"time": 1605364200,
+			"userNumber": 6047,
+			"rate": true
+		},
+		"428": {
+			"title": "Weekly Contest 215",
+			"slug": "weekly-contest-215",
+			"time": 1605407400,
+			"userNumber": 9683,
+			"rate": true
+		},
+		"432": {
+			"title": "Weekly Contest 216",
+			"slug": "weekly-contest-216",
+			"time": 1606012200,
+			"userNumber": 9573,
+			"rate": true
 		}
 	}
 	return contestInfo

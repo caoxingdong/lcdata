@@ -7,7 +7,7 @@ let contestInfo = Utils.getContestInfo()
 
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
-mongoose.connect('mongodb+srv://doudle:' + dbuser.pw + '@lcdata.h41ou.mongodb.net/<dbname>?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://doudle:doudle@lcdata.h41ou.mongodb.net/<dbname>?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -15,11 +15,11 @@ mongoose.connect('mongodb+srv://doudle:' + dbuser.pw + '@lcdata.h41ou.mongodb.ne
 .catch(error => console.log(error.message))
 
 function writeDataSingle(contestId, pageNumber) {
-	if (!(contestId.toString() in contestInfo)) {
-		writeDataSingle(contestId+1, 1)
+	if (contestId === 429) {
 		return
 	}
-	if (contestId === 415) {
+	if (!(contestId.toString() in contestInfo)) {
+		writeDataSingle(contestId+1, 1)
 		return
 	}
 	// if (pageNumber === 21) {
@@ -81,11 +81,7 @@ function writeDataSingle(contestId, pageNumber) {
 
 
 
-// 1-50
-// 51-80
-// 81-100
-// 101-130
-// 131-160
+//428 done
 
 
 
