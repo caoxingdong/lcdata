@@ -13,3 +13,9 @@ git status,
 git add . , 
 git commit -m "???",
 git push -u origin master
+
+Heroku:
+
+heroku login,
+git push heroku HEAD:master
+
