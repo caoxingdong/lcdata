@@ -7,7 +7,7 @@ let contestInfo = Utils.getContestInfo()
 
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
-mongoose.connect('mongodb+srv://doudle:doudle@lcdata.h41ou.mongodb.net/<dbname>?retryWrites=true&w=majority', {
+mongoose.connect('***', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
